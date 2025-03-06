@@ -63,28 +63,28 @@
                 href="//localhost:1313/2-prerequiste/2.3-clonecode/"
                 />
   </url><url>
-    <loc>//localhost:1313/4-s3log/4.1-updateiamrole/</loc>
+    <loc>//localhost:1313/4-cicd/4.1-jenkins/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:1313/vi/4-s3log/4.1-updateiamrole/"
+                href="//localhost:1313/vi/4-cicd/4.1-jenkins/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:1313/4-s3log/4.1-updateiamrole/"
+                href="//localhost:1313/4-cicd/4.1-jenkins/"
                 />
   </url><url>
-    <loc>//localhost:1313/3-security/3.2-private-instance/</loc>
+    <loc>//localhost:1313/3-security/3.2-trivy/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:1313/vi/3-security/3.2-private-instance/"
+                href="//localhost:1313/vi/3-security/3.2-trivy/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:1313/3-security/3.2-private-instance/"
+                href="//localhost:1313/3-security/3.2-trivy/"
                 />
   </url><url>
     <loc>//localhost:1313/2-prerequiste/2.2-createeip/</loc>
@@ -99,16 +99,16 @@
                 href="//localhost:1313/2-prerequiste/2.2-createeip/"
                 />
   </url><url>
-    <loc>//localhost:1313/4-s3log/4.2-creates3bucket/</loc>
+    <loc>//localhost:1313/4-cicd/4.2-plugins/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:1313/vi/4-s3log/4.2-creates3bucket/"
+                href="//localhost:1313/vi/4-cicd/4.2-plugins/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:1313/4-s3log/4.2-creates3bucket/"
+                href="//localhost:1313/4-cicd/4.2-plugins/"
                 />
   </url><url>
     <loc>//localhost:1313/2-prerequiste/</loc>
@@ -135,40 +135,28 @@
                 href="//localhost:1313/3-security/"
                 />
   </url><url>
-    <loc>//localhost:1313/4-s3log/4.3-creategwes3/</loc>
+    <loc>//localhost:1313/4-cicd/4.3-javanodejs/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:1313/vi/4-s3log/4.3-creategwes3/"
+                href="//localhost:1313/vi/4-cicd/4.3-javanodejs/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:1313/4-s3log/4.3-creategwes3/"
+                href="//localhost:1313/4-cicd/4.3-javanodejs/"
                 />
   </url><url>
-    <loc>//localhost:1313/4-s3log/</loc>
+    <loc>//localhost:1313/4-cicd/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:1313/vi/4-s3log/"
+                href="//localhost:1313/vi/4-cicd/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:1313/4-s3log/"
-                />
-  </url><url>
-    <loc>//localhost:1313/4-s3log/4.4-configsessionlogs/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="//localhost:1313/vi/4-s3log/4.4-configsessionlogs/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="//localhost:1313/4-s3log/4.4-configsessionlogs/"
+                href="//localhost:1313/4-cicd/"
                 />
   </url><url>
     <loc>//localhost:1313/5-portfwd/</loc>
