@@ -75,18 +75,6 @@
                 href="//localhost:1313/4-cicd/4.1-jenkins/"
                 />
   </url><url>
-    <loc>//localhost:1313/5-monitoring/5.1-server-copy/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="vi"
-                href="//localhost:1313/vi/5-monitoring/5.1-server-copy/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="//localhost:1313/5-monitoring/5.1-server-copy/"
-                />
-  </url><url>
     <loc>//localhost:1313/5-monitoring/5.1-server/</loc>
     <xhtml:link
                 rel="alternate"
@@ -97,6 +85,78 @@
                 rel="alternate"
                 hreflang="en"
                 href="//localhost:1313/5-monitoring/5.1-server/"
+                />
+  </url><url>
+    <loc>//localhost:1313/5-monitoring/5.2-prometheus/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/5-monitoring/5.2-prometheus/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/5-monitoring/5.2-prometheus/"
+                />
+  </url><url>
+    <loc>//localhost:1313/5-monitoring/5.3-nodeexporter/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/5-monitoring/5.3-nodeexporter/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/5-monitoring/5.3-nodeexporter/"
+                />
+  </url><url>
+    <loc>//localhost:1313/5-monitoring/5.4-jkandprom/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/5-monitoring/5.4-jkandprom/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/5-monitoring/5.4-jkandprom/"
+                />
+  </url><url>
+    <loc>//localhost:1313/5-monitoring/5.5-grafana/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/5-monitoring/5.5-grafana/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/5-monitoring/5.5-grafana/"
+                />
+  </url><url>
+    <loc>//localhost:1313/5-monitoring/5.6-adddatasource/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/5-monitoring/5.6-adddatasource/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/5-monitoring/5.6-adddatasource/"
+                />
+  </url><url>
+    <loc>//localhost:1313/5-monitoring/5.7-dashboard/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/5-monitoring/5.7-dashboard/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/5-monitoring/5.7-dashboard/"
                 />
   </url><url>
     <loc>//localhost:1313/3-security/3.2-trivy/</loc>
@@ -279,17 +339,17 @@
                 href="//localhost:1313/5-monitoring/"
                 />
   </url><url>
-    <loc>//localhost:1313/6-cleanup/</loc>
+    <loc>//localhost:1313/6-notification/</loc>
     <lastmod>1970-01-01T08:33:42+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:1313/vi/6-cleanup/"
+                href="//localhost:1313/vi/6-notification/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:1313/6-cleanup/"
+                href="//localhost:1313/6-notification/"
                 />
   </url><url>
     <loc>//localhost:1313/categories/</loc>

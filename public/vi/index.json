@@ -14,6 +14,13 @@
 	"content": "Chạy các câu lệnh sau để cài đặt Jenkins:\nsudo apt update sudo apt install fontconfig openjdk-17-jre java -version openjdk version \u0026#34;17.0.8\u0026#34; 2023-07-18 OpenJDK Runtime Environment (build 17.0.8+7-Debian-1deb12u1) OpenJDK 64-Bit Server VM (build 17.0.8+7-Debian-1deb12u1, mixed mode, sharing) #jenkins sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \\ https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \\ https://pkg.jenkins.io/debian-stable binary/ | sudo tee \\ /etc/apt/sources.list.d/jenkins.list \u0026gt; /dev/null sudo apt-get update sudo apt-get install jenkins sudo systemctl start jenkins sudo systemctl enable jenkins Sau khi cài đặt xong, hãy kiểm tra trạng thái của Jenkins bằng câu lệnh sau:\nsudo systemctl status jenkins Vậy là Jenkins đã được khởi chạy thành công.\nHãy nhớ tạo thêm một inbound rule cho phép truy cập vào port 8080 trên Security Group của EC2 instance.\nBây giờ, chúng ta sẽ truy cập vào Jenkins thông qua trình duyệt web với port 8080 và làm theo các bước hướng dẫn của Jenkins để lấy mật khẩu và cài đặt các plugin được yêu cầu.\nSau đó tạo một user mới và đăng nhập vào Jenkins.\n"
 },
 {
+	"uri": "//localhost:1313/vi/5-monitoring/5.1-server/",
+	"title": "Cài đặt server",
+	"tags": [],
+	"description": "",
+	"content": " Cài đặt server Monitoring như bước Tạo EC2 instance để cài đặt Jenkins, SonarQube và Trivy\nTạo Elastic IP và gắn vào server Monitoring như bước Tạo Elastic IP cho EC2 instance\n"
+},
+{
 	"uri": "//localhost:1313/vi/3-security/3.1-sonarqube/",
 	"title": "Cài đặt SonarQube",
 	"tags": [],
@@ -42,6 +49,13 @@
 	"content": "Truy cập vào Manage Jenkins -\u0026gt; Plugins -\u0026gt; Available plugins và cài đặt các plugin sau:\nEclipse Temurin Installer (Install without restart) SonarQube Scanner (Install without restart) NodeJs Plugin (Install Without restart) Email Extension Plugin "
 },
 {
+	"uri": "//localhost:1313/vi/5-monitoring/5.2-prometheus/",
+	"title": "Cài đặt Prometheus",
+	"tags": [],
+	"description": "",
+	"content": "Connect vào server Monitoring thông qua SSH và thực hiện các bước sau:\nCập nhật các package trên server: sudo apt update -y Tạo một tài khoản hệ thống dành riêng cho Prometheus: sudo useradd --system --no-create-home --shell /bin/false prometheus Tải về tệp cài đặt Prometheus phiên bản 2.47.1 wget https://github.com/prometheus/prometheus/releases/download/v2.47.1/prometheus-2.47.1.linux-amd64.tar.gz Giải nén tệp cài đặt Prometheus: tar -xvf prometheus-2.47.1.linux-amd64.tar.gz Di chuyển vào thư mục Prometheus: cd prometheus-2.47.1.linux-amd64 Tạo thư mục lưu trữ dữ liệu và cấu hình: sudo mkdir -p /data /etc/prometheus Di chuyển các tệp thực thi: sudo mv prometheus promtool /usr/local/bin/ Di chuyển các tệp console: sudo mv consoles/ console_libraries/ /etc/prometheus/ Di chuyển tệp cấu hình: sudo mv prometheus.yml /etc/prometheus/prometheus.yml Cấp quyền sở hữu cho user prometheus với thư mục /data và /etc/prometheus: sudo chown -R prometheus:prometheus /etc/prometheus/ /data/ Tạo tệp cấu hình Systemd cho Prometheus: sudo vi /etc/systemd/system/prometheus.service Thêm nội dung sau vào file trên: Chỉ định User và Group là prometheus sẽ chạy dịch vụ Prometheus. ExecStart chỉ định đường dẫn đến tệp cấu hình Prometheus, thư mục lưu trữ dữ liệu, port lắng nghe và cổng web. web.listen-address chỉ định cổng lắng nghe của Prometheus. web.enable-lifecycle cho phép Prometheus sử dụng API để tương tác với các dịch vụ khác. [Unit] Description=Prometheus Wants=network-online.target After=network-online.target StartLimitIntervalSec=500 StartLimitBurst=5 [Service] User=prometheus Group=prometheus Type=simple Restart=on-failure RestartSec=5s ExecStart=/usr/local/bin/prometheus \\ --config.file=/etc/prometheus/prometheus.yml \\ --storage.tsdb.path=/data \\ --web.console.templates=/etc/prometheus/consoles \\ --web.console.libraries=/etc/prometheus/console_libraries \\ --web.listen-address=0.0.0.0:9090 \\ --web.enable-lifecycle [Install] WantedBy=multi-user.target Kích hoạt và khởi động dịch vụ Prometheus: sudo systemctl enable prometheus sudo systemctl start prometheus Kiểm tra trạng thái của dịch vụ Prometheus: sudo systemctl status prometheus Hãy nhớ tạo thêm một inbound rule cho phép truy cập vào port 9090 trên Security Group của server Monitoring.\nTruy cập vào trình duyệt và nhập địa chỉ IP public của server Monitoring kèm theo port 9090 để kiểm tra xem Prometheus đã chạy thành công hay chưa. "
+},
+{
 	"uri": "//localhost:1313/vi/3-security/3.2-trivy/",
 	"title": "Cài đặt Trivy",
 	"tags": [],
@@ -61,6 +75,13 @@
 	"tags": [],
 	"description": "",
 	"content": "Trong phần này chúng ta sẽ tiến hành tạo EC2 instance, tạo Elastic IP và cài đặt Docker trên EC2 để thử nghiệm deploy Docker ở local thành công hay chưa sau đó tiến hành deploy tự động hoá với Jenkins.\nNội dung Tạo EC2 instance để cài đặt Jenkins, SonarQube và Trivy Tạo Elastic IP cho EC2 instance Kết nối vào EC2 instance "
+},
+{
+	"uri": "//localhost:1313/vi/5-monitoring/5.3-nodeexporter/",
+	"title": "Cài đặt Node Exporter",
+	"tags": [],
+	"description": "",
+	"content": "Connect vào server Monitoring thông qua SSH và thực hiện các bước sau:\nTạo một tài khoản hệ thống dành riêng cho Prometheus: sudo useradd --system --no-create-home --shell /bin/false node_exporter Tải về tệp cài đặt Node Exporter phiên bản 1.6.1: wget https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz Giải nén tệp cài đặt Prometheus: tar -xvf node_exporter-1.6.1.linux-amd64.tar.gz Di chuyển file node_exporter vào thư mục /usr/local/bin/ và dọn dẹp các tệp và thư mục không còn cần thiết sau khi di chuyển: sudo mv node_exporter-1.6.1.linux-amd64/node_exporter /usr/local/bin/ rm -rf node_exporter* Tạo tệp cấu hình Systemd cho Node Exporter: sudo vi /etc/systemd/system/node_exporter.service Thêm nội dung sau vào file trên: Chỉ định User và Group là prometheus sẽ chạy dịch vụ Prometheus. ExecStart chỉ định đường dẫn đến tệp cấu hình Node Exporter, thư mục lưu trữ dữ liệu, port lắng nghe và cổng web. [Unit] Description=Node Exporter Wants=network-online.target After=network-online.target StartLimitIntervalSec=500 StartLimitBurst=5 [Service] User=node_exporter Group=node_exporter Type=simple Restart=on-failure RestartSec=5s ExecStart=/usr/local/bin/node_exporter --collector.logind [Install] WantedBy=multi-user.target Kích hoạt và khởi động dịch vụ Node Exporter: sudo systemctl enable node_exporter sudo systemctl start node_exporter Kiểm tra trạng thái của dịch vụ Prometheus: sudo systemctl status node_exporter Hãy nhớ tạo thêm một inbound rule cho phép truy cập vào port 9100 trên Security Group của server Monitoring.\n"
 },
 {
 	"uri": "//localhost:1313/vi/4-cicd/4.3-javanodejs/",
@@ -84,6 +105,20 @@
 	"content": "Trong project này, chúng ta sẽ dùng 2 tools cho security là SonarQube và Trivi.\nSonarQube là một công cụ quản lý chất lượng mã nguồn mã nguồn mở, giúp bạn theo dõi, quản lý và giảm thiểu rủi ro kỹ thuật trong mã nguồn của bạn.\nTrivy là một công cụ quét lỗ hổng bảo mật cho container, giúp bạn phát hiện các lỗ hổng bảo mật trong các image Docker.\nNội dung 3.1. Cài đặt SonarQube 3.2. Cài đặt Trivy\n"
 },
 {
+	"uri": "//localhost:1313/vi/4-cicd/4.4-sonartoken/",
+	"title": "Tạo SonarQube Token",
+	"tags": [],
+	"description": "",
+	"content": "Quay lại giao diện chính của SonarQube, chọn Administration -\u0026gt; Security -\u0026gt; Users.\nChọn Token -\u0026gt; nhập tên cho token là jenkins -\u0026gt; Generate.\nCopy token vừa được tạo, truy cập lại giao diện của Jenkins, chọn Manage Jenkins -\u0026gt; Credentials.\nChọn System -\u0026gt; Global credentials -\u0026gt; Add Credentials.\nChọn loại Secret text -\u0026gt; dán token của SonarQube vừa copy ở bước trước -\u0026gt; nhập ID là Sonar-token -\u0026gt; Create.\n"
+},
+{
+	"uri": "//localhost:1313/vi/5-monitoring/5.4-jkandprom/",
+	"title": "Tích hợp Jenkins với Prometheus",
+	"tags": [],
+	"description": "",
+	"content": "Để cấu hình Prometheus thu thập số liệu từ Node Exporter, chỉ cần chỉnh sửa file cấu hình prometheus.yml như sau:\nDi chuyển tới thư mục chứ file cấu hình Prometheus: cd /etc/prometheus Chỉnh sửa file cấu hình prometheus.yml: sudo vi prometheus.yml Thêm cấu hình sau vào file: - job_name: \u0026#39;node_exporter\u0026#39; static_configs: - targets: [\u0026#39;\u0026lt;your-node-exporter-ip\u0026gt;:\u0026lt;your-node-exporter-port\u0026gt;\u0026#39;] Như hình bên dưới.\nLưu và thoát file cấu hình. Kiểm tra xem cấu hình đã phù hợp chưa bằng cách chạy lệnh: promtool check config /etc/prometheus/prometheus.yml Reload cấu hình Prometheus mà không cần phải restart dịch vụ: curl -X POST http://localhost:9090/-/reload Truy cập giao diện Prometheus và kiểm tra xem số liệu từ Node Exporter đã được thu thập chưa. "
+},
+{
 	"uri": "//localhost:1313/vi/4-cicd/",
 	"title": "Triển khai CICD",
 	"tags": [],
@@ -91,11 +126,25 @@
 	"content": "Trong phần này, chúng ta sẽ triển khai CICD pipeline với Jenkins, sẽ bao gồm các bước cài đặt Jenkins, các plugin cần thiết, cấu hình Jenkins.\nJenkins là một công cụ mã nguồn mở giúp tự động hóa các công việc trong quá trình phát triển phần mềm. Jenkins có thể được sử dụng để tự động hóa các công việc như biên dịch mã nguồn, kiểm tra mã nguồn, triển khai ứng dụng, và nhiều công việc khác.\nNội dung: Cập nhật IAM Role Tạo S3 Bucket Tạo S3 Gateway endpoint Cấu hình Session logs "
 },
 {
-	"uri": "//localhost:1313/vi/5-portfwd/",
-	"title": "Port Forwarding",
+	"uri": "//localhost:1313/vi/5-monitoring/5.5-grafana/",
+	"title": "Cài đặt Grafana",
 	"tags": [],
 	"description": "",
-	"content": "\rPort Forwarding là mốt cách thức hữu ích để chuyển hướng lưu lượng mạng từ 1 địa chỉ IP - Port này sang 1 địa chỉ IP - Port khác. Với Port Forwarding chúng ta có thể truy cập một EC2 instance nằm trong private subnet từ máy trạm của chúng ta.\nChúng ta sẽ cấu hình Port Forwarding cho kết nối RDP giữa máy của mình với Private Windows Instance nằm trong private subnet mà chúng ta đã tạo cho bài thực hành này.\nTạo IAM User có quyền kết nối SSM Truy cập vào giao diện quản trị dịch vụ IAM Click Users , sau đó click Add users. Tại trang Add user. Tại mục User name, điền Portfwd. Click chọn Access key - Programmatic access. Click Next: Permissions. Click Attach existing policies directly. Tại ô tìm kiếm , điền ssm. Click chọn AmazonSSMFullAccess. Click Next: Tags, click Next: Reviews. Click Create user. Lưu lại thông tin Access key ID và Secret access key để thực hiện cấu hình AWS CLI. Cài đặt và cấu hình AWS CLI và Session Manager Plugin Để thực hiện phần thực hành này, đảm bảo máy trạm của bạn đã cài AWS CLI và Session Manager Plugin\nBạn có thể tham khảo thêm bài thực hành về cài đặt và cấu hình AWS CLI tại đây.\nVới Windows thì khi giải nén thư mục cài đặt Session Manager Plugin bạn hãy chạy file install.bat với quyền Administrator để thực hiện cài đặt.\nThực hiện Portforwarding Chạy command dưới đây trong Command Prompt trên máy của bạn để cấu hình Port Forwarding. aws ssm start-session --target (your ID windows instance) --document-name AWS-StartPortForwardingSession --parameters portNumber=\u0026#34;3389\u0026#34;,localPortNumber=\u0026#34;9999\u0026#34; --region (your region) Thông tin Instance ID của Windows Private Instance có thể tìm được khi bạn xem chi tiết máy chủ EC2 Windows Private Instance.\nCâu lệnh ví dụ C:\\Windows\\system32\u0026gt;aws ssm start-session --target i-06343d7377486760c --document-name AWS-StartPortForwardingSession --parameters portNumber=\u0026#34;3389\u0026#34;,localPortNumber=\u0026#34;9999\u0026#34; --region ap-southeast-1 Nếu câu lệnh của bạn báo lỗi như dưới đây : SessionManagerPlugin is not found. Please refer to SessionManager Documentation here: http://docs.aws.amazon.com/console/systems-manager/session-manager-plugin-not-found\nChứng tỏ bạn chưa cài Session Manager Plugin thành công. Bạn có thể cần khởi chạy lại Command Prompt sau khi cài Session Manager Plugin.\nKết nối tới Private Windows Instance bạn đã tạo bằng công cụ Remote Desktop trên máy trạm của bạn. Tại mục Computer: điền localhost:9999. Quay trở lại giao diện quản trị của dịch vụ System Manager - Session Manager. Click tab Session history. Chúng ta sẽ thấy các session logs với tên Document là AWS-StartPortForwardingSession. Chúc mừng bạn đã hoàn tất bài thực hành hướng dẫn cách sử dụng Session Manager để kết nối cũng như lưu trữ các session logs trong S3 bucket. Hãy nhớ thực hiện bước dọn dẹp tài nguyên để tránh sinh chi phí ngoài ý muốn nhé.\n"
+	"content": "Đầu tiên, cài đặt các dependencies cần thiết:\nsudo apt-get update sudo apt-get install -y apt-transport-https software-properties-common Tải khoá GPG của Grafana và thêm vào danh sách các khoá tin cậy trên hệ thống. wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add - Thêm repository của Grafana vào hệ thống APT, giúp cài đặt hoặc cặt nhật Grafana qua APT. echo \u0026#34;deb https://packages.grafana.com/oss/deb stable main\u0026#34; | sudo tee -a /etc/apt/sources.list.d/grafana.list Cập nhật và cài đặt Grafana sudo apt-get update sudo apt-get -y install grafana Kích hoạt và khởi động dịch vụ Grafana sudo systemctl enable grafana-server sudo systemctl start grafana-server Kiểm tra trạng thái của dịch vụ Grafana sudo systemctl status grafana-server Truy cập vào Grafana qua địa chỉ IP của máy chủ với port 3000 (mặc định) và đăng nhập với tài khoản mặc định là admin và mật khẩu mặc định là admin. Hãy nhớ tạo thêm một inbound rule cho phép truy cập vào port 3000 trên Security Group của server Monitoring.\n"
+},
+{
+	"uri": "//localhost:1313/vi/5-monitoring/",
+	"title": "Monitoring",
+	"tags": [],
+	"description": "",
+	"content": "Ở phần Monitoring này, chúng ta sẽ cài đặt server Monitoring để theo dõi các thông số của server như CPU, RAM, Disk, Network, \u0026hellip; thông qua các công cụ như Prometheus, Grafana và Node Exporter.\n"
+},
+{
+	"uri": "//localhost:1313/vi/4-cicd/4.5-sonarserver/",
+	"title": "Thêm SonarQube server",
+	"tags": [],
+	"description": "",
+	"content": "Truy cập giao diện chính của Jenkins, chọn Manage Jenkins -\u0026gt; System. Ở mục SonarQube servers, chọn Add SonarQube. Nhập tên là sonar-server, Server URL là đường dẫn truy cập SonarQube của bạn và Server authentication token là token bạn đã tạo ở bước trước. Sau đó nhấn Apply và Save để lưu cấu hình.\n"
 },
 {
 	"uri": "//localhost:1313/vi/6-cleanup/",
@@ -103,6 +152,55 @@
 	"tags": [],
 	"description": "",
 	"content": "Chúng ta sẽ tiến hành các bước sau để xóa các tài nguyên chúng ta đã tạo trong bài thực hành này.\nXóa EC2 instance Truy cập giao diện quản trị dịch vụ EC2 Click Instances. Click chọn cả 2 instance Public Linux Instance và Private Windows Instance. Click Instance state. Click Terminate instance, sau đó click Terminate để xác nhận. Truy cập giao diện quản trị dịch vụ IAM Click Roles. Tại ô tìm kiếm , điền SSM. Click chọn SSM-Role. Click Delete, sau đó điền tên role SSM-Role và click Delete để xóa role. Click Users. Click chọn user Portfwd. Click Delete, sau đó điền tên user Portfwd và click Delete để xóa user. Xóa S3 bucket Truy cập giao diện quản trị dịch vụ System Manager - Session Manager. Click tab Preferences. Click Edit. Kéo chuột xuống dưới. Tại mục S3 logging. Bỏ chọn Enable để tắt tính năng logging. Kéo chuột xuống dưới. Click Save. Truy cập giao diện quản trị dịch vụ S3 Click chọn S3 bucket chúng ta đã tạo cho bài thực hành. ( Ví dụ : lab-fcj-bucket-0001 ) Click Empty. Điền permanently delete, sau đó click Empty để tiến hành xóa object trong bucket. Click Exit. Sau khi xóa hết object trong bucket, click Delete Điền tên S3 bucket, sau đó click Delete bucket để tiến hành xóa S3 bucket. Xóa các VPC Endpoint Truy cập vào giao diện quản trị dịch vụ VPC Click Endpoints. Chọn 4 endpoints chúng ta đã tạo cho bài thực hành bao gồm SSM, SSMMESSAGES, EC2MESSAGES, S3GW. Click Actions. Click Delete VPC endpoints. Tại ô confirm , điền delete. Click Delete để tiến hành xóa các endpoints. Click biểu tượng refresh, kiểm tra tất cả các endpoints đã bị xóa trước khi làm bước tiếp theo. Xóa VPC Truy cập vào giao diện quản trị dịch vụ VPC Click Your VPCs. Click chọn Lab VPC. Click Actions. Click Delete VPC. Tại ô confirm, điền delete để xác nhận, click Delete để thực hiện xóa Lab VPC và các tài nguyên liên quan. "
+},
+{
+	"uri": "//localhost:1313/vi/5-monitoring/5.6-adddatasource/",
+	"title": "Thêm Prometheus Data Source cho Grafana",
+	"tags": [],
+	"description": "",
+	"content": "Tại giao diện chính của Grafana sau khi hoàn tất tạo user, chọn DATA SOURCES.\nChọn Prometheus. Tại giao diện cấu hình prometheus, dán Prometheus server URL đã truy cập trước đấy vào mục Connection. Sau đó nhấn Save \u0026amp; Test. Như vậy đã hoàn tất việc thêm Prometheus Data Source cho Grafana. "
+},
+{
+	"uri": "//localhost:1313/vi/4-cicd/4.6-sonarscanner/",
+	"title": "Thêm SonarQube Scanner",
+	"tags": [],
+	"description": "",
+	"content": "Truy cập giao diện chính của Jenkins, chọn Manage Jenkins -\u0026gt; Tools. Ở mục SonarQube Scanner installations, chọn Add SonarQube Scanner. Đặt tên là sonar-scanner, còn lại là mặc định. Sau đó nhấn Apply và Save để lưu cấu hình.\n"
+},
+{
+	"uri": "//localhost:1313/vi/5-monitoring/5.7-dashboard/",
+	"title": "Tạo Dashboard",
+	"tags": [],
+	"description": "",
+	"content": "Quay lại giao diện chính của Grafana, chọn DASHBOARDS.\nChọn Import a dashboard. Truy cập vào Node Exporter Full, chọn Copy ID to clipboard. Quay lại giao diện Import a dashboard của Grafana, dán ID vừa copy vào mục Grafana.com Dashboard và nhấn Load. Tại mục Prometheus, chọn Prometheus Data Source đã được thêm trước đó. Sau đó nhấn Import. Như vậy đã hoàn tất việc tạo Dashboard cho Node Exporter. Làm tương tự để tạo Dashboard cho Jenkins, đầu tiên chúng ta cần cài đặt Plugin cho Jenkins, sau đó restart lại Jenkins. Truy cập vào đường dẫn của Jenkins với path là /prometheus để kiểm tra xem Jenkins đã được Prometheus thu thập số liệu chưa. Làm tương tự như bước cấu hình Prometheus thu thập metrics từ Node Exporter, chỉ cần chỉnh sửa file cấu hình prometheus.yml để cấu hình Prometheus thu thập thông tin của Jenkins. Kiểm tra các Targets đã được cấu hình trong Prometheus, chúng ta đã thêm thành công Jenkins vào Prometheus. Làm tương tự để import Dashboard cho Jenkins như dưới đây. Vậy là đã tạo thành công hai dashboard cho Node Exporter và Jenkins trên Grafana.\n"
+},
+{
+	"uri": "//localhost:1313/vi/4-cicd/4.7-sonarproject/",
+	"title": "Tạo SonarQube project",
+	"tags": [],
+	"description": "",
+	"content": "Truy cập giao diện chính của SonarQube, chọn Projects -\u0026gt; Manually. Nhập tên project là DevSecOps, Project key là DevSecOps, Main branch name là main. Sau đó nhấn Set Up để tạo project.\nTiếp theo, chọn Locally.\nỞ phần Provide a token, chọn Generate -\u0026gt; Continue. Sẽ có một đoạn script được hiển thị để thực thi SonarQube Scanner.\n"
+},
+{
+	"uri": "//localhost:1313/vi/4-cicd/4.8-owasp/",
+	"title": "Cài đặt và cấu hình plugin OWASP Dependency-Check",
+	"tags": [],
+	"description": "",
+	"content": "Truy cập giao diện cài đặt plugin của Jenkins như đã hướng dẫn ở bước trước, tìm kiếm plugin OWASP Dependency-Check và cài đặt.\nVào cấu hình Tools của Jenkins, chọn Add OWASP Dependency-Check. Đặt tên là DP-Check, chọn Install automatically -\u0026gt; Add Installer -\u0026gt; Install from github.com. Nhấn Apply và Save để lưu cấu hình.\n"
+},
+{
+	"uri": "//localhost:1313/vi/4-cicd/4.9-docker/",
+	"title": "Cài đặt và cấu hình plugin Docker",
+	"tags": [],
+	"description": "",
+	"content": "Truy cập giao diện cài đặt plugin của Jenkins như đã hướng dẫn ở bước trước, tìm kiếm plugin Docker và cài đặt các plugins sau.\nĐể có thể push Docker image lên Docker Hub, cần cấu hình thông tin credential của Docker Hub. Thực hiện tạo mới credential như bước trước.\nVào cấu hình Tools của Jenkins, chọn Add Docker. Đặt tên là docker, chọn Install automatically -\u0026gt; Add Installer -\u0026gt; Download from docker.com. Nhấn Apply và Save để lưu cấu hình.\n"
+},
+{
+	"uri": "//localhost:1313/vi/4-cicd/4.10-pipeline/",
+	"title": "Khởi tạo Jenkins pipeline",
+	"tags": [],
+	"description": "",
+	"content": "Truy cập giao diện chính của Jenkins, chọn New Item -\u0026gt; Pipeline. Đặt tên cho pipeline là DevSecOps, chọn OK.\nCuộn xuống mục Pipeline và copy Pipeline script dưới đây vào mục Script.\npipeline{ agent any tools{ jdk \u0026#39;jdk17\u0026#39; nodejs \u0026#39;node16\u0026#39; } environment { SCANNER_HOME=tool \u0026#39;sonar-scanner\u0026#39; } stages { stage(\u0026#39;clean workspace\u0026#39;){ steps{ cleanWs() } } stage(\u0026#39;Checkout from Git\u0026#39;){ steps{ git branch: \u0026#39;main\u0026#39;, url: \u0026#39;https://github.com/nghialmgcd201527/Workshop-DevSecOps.git\u0026#39; } } stage(\u0026#34;Sonarqube Analysis \u0026#34;){ steps{ withSonarQubeEnv(\u0026#39;sonar-server\u0026#39;) { sh \u0026#39;\u0026#39;\u0026#39; $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=DevSecOps \\ -Dsonar.projectKey=DevSecOps \u0026#39;\u0026#39;\u0026#39; } } } stage(\u0026#34;quality gate\u0026#34;){ steps { script { waitForQualityGate abortPipeline: false, credentialsId: \u0026#39;Sonar-token\u0026#39; } } } stage(\u0026#39;Install Dependencies\u0026#39;) { steps { sh \u0026#34;npm install\u0026#34; } } stage(\u0026#39;OWASP FS SCAN\u0026#39;) { steps { dependencyCheck additionalArguments: \u0026#39;--scan ./ --disableYarnAudit --disableNodeAudit\u0026#39;, odcInstallation: \u0026#39;DP-Check\u0026#39; dependencyCheckPublisher pattern: \u0026#39;**/dependency-check-report.xml\u0026#39; } } stage(\u0026#39;TRIVY FS SCAN\u0026#39;) { steps { sh \u0026#34;trivy fs . \u0026gt; trivyfs.txt\u0026#34; } } stage(\u0026#34;Docker Build \u0026amp; Push\u0026#34;){ steps{ script{ withDockerRegistry(credentialsId: \u0026#39;docker\u0026#39;, toolName: \u0026#39;docker\u0026#39;){ sh \u0026#34;docker build -t devsecops .\u0026#34; sh \u0026#34;docker tag devsecops nghialmgcd201527/devsecops:latest \u0026#34; sh \u0026#34;docker push nghialmgcd201527/devsecops:latest \u0026#34; } } } } stage(\u0026#34;TRIVY\u0026#34;){ steps{ sh \u0026#34;trivy image nghialmgcd201527/devsecops:latest \u0026gt; trivyimage.txt\u0026#34; } } stage(\u0026#39;Deploy to container\u0026#39;){ steps{ sh \u0026#39;docker run -d --name devsecops -p 8081:3000 nghialmgcd201527/devsecops:latest\u0026#39; } } } } Nhấn Apply và Save để lưu cấu hình. Tại trang của pipeline, nhấn Build Now để chạy pipeline.\nTruy cập vào Pipeline Overview để xem tiến trình của pipeline.\nNếu các bạn gặp lỗi docker login failed như dưới đây.\nHãy kiểm tra lại thông tin credential của Docker Hub đã được cấu hình đúng chưa, nếu đúng rồi thì hãy cấp quyền cho Jenkins chạy Docker và khởi động lại Jenkins để áp dụng cấu hình mới.\nsudo su sudo usermod -aG docker jenkins sudo systemctl restart jenkins Hãy thử chạy lại pipeline và kiểm tra kết quả.\nSau khi pipeline chạy xong, truy cập vào giao diện quản lí repository của Docker Hub để kiểm tra xem image đã được push lên chưa.\nVà kiểm tra ở SonarQube những issues được phát hiện.\nVậy là đã thành công bước set up Jenkins Pipeline, bây giờ đến phần Monitoring.\n"
 },
 {
 	"uri": "//localhost:1313/vi/categories/",
