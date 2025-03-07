@@ -75,6 +75,30 @@
                 href="//localhost:1313/4-cicd/4.1-jenkins/"
                 />
   </url><url>
+    <loc>//localhost:1313/5-monitoring/5.1-server-copy/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/5-monitoring/5.1-server-copy/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/5-monitoring/5.1-server-copy/"
+                />
+  </url><url>
+    <loc>//localhost:1313/5-monitoring/5.1-server/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/5-monitoring/5.1-server/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/5-monitoring/5.1-server/"
+                />
+  </url><url>
     <loc>//localhost:1313/3-security/3.2-trivy/</loc>
     <xhtml:link
                 rel="alternate"
@@ -135,6 +159,18 @@
                 href="//localhost:1313/3-security/"
                 />
   </url><url>
+    <loc>//localhost:1313/4-cicd/4.10-pipeline/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/4-cicd/4.10-pipeline/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/4-cicd/4.10-pipeline/"
+                />
+  </url><url>
     <loc>//localhost:1313/4-cicd/4.3-javanodejs/</loc>
     <xhtml:link
                 rel="alternate"
@@ -145,6 +181,78 @@
                 rel="alternate"
                 hreflang="en"
                 href="//localhost:1313/4-cicd/4.3-javanodejs/"
+                />
+  </url><url>
+    <loc>//localhost:1313/4-cicd/4.4-sonartoken/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/4-cicd/4.4-sonartoken/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/4-cicd/4.4-sonartoken/"
+                />
+  </url><url>
+    <loc>//localhost:1313/4-cicd/4.5-sonarserver/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/4-cicd/4.5-sonarserver/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/4-cicd/4.5-sonarserver/"
+                />
+  </url><url>
+    <loc>//localhost:1313/4-cicd/4.6-sonarscanner/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/4-cicd/4.6-sonarscanner/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/4-cicd/4.6-sonarscanner/"
+                />
+  </url><url>
+    <loc>//localhost:1313/4-cicd/4.7-sonarproject/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/4-cicd/4.7-sonarproject/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/4-cicd/4.7-sonarproject/"
+                />
+  </url><url>
+    <loc>//localhost:1313/4-cicd/4.8-owasp/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/4-cicd/4.8-owasp/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/4-cicd/4.8-owasp/"
+                />
+  </url><url>
+    <loc>//localhost:1313/4-cicd/4.9-docker/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="vi"
+                href="//localhost:1313/vi/4-cicd/4.9-docker/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="//localhost:1313/4-cicd/4.9-docker/"
                 />
   </url><url>
     <loc>//localhost:1313/4-cicd/</loc>
@@ -159,16 +267,16 @@
                 href="//localhost:1313/4-cicd/"
                 />
   </url><url>
-    <loc>//localhost:1313/5-portfwd/</loc>
+    <loc>//localhost:1313/5-monitoring/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="vi"
-                href="//localhost:1313/vi/5-portfwd/"
+                href="//localhost:1313/vi/5-monitoring/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="//localhost:1313/5-portfwd/"
+                href="//localhost:1313/5-monitoring/"
                 />
   </url><url>
     <loc>//localhost:1313/6-cleanup/</loc>

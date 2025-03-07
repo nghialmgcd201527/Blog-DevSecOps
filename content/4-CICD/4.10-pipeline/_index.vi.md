@@ -97,6 +97,35 @@ Truy cập vào **Pipeline Overview** để xem tiến trình của pipeline.
 
 ![ConnectPrivate](/images/anh54.png)
 
+Nếu các bạn gặp lỗi **docker login failed** như dưới đây. 
+
+![ConnectPrivate](/images/anh55.png)
+
+Hãy kiểm tra lại thông tin credential của Docker Hub đã được cấu hình đúng chưa, nếu đúng rồi thì hãy cấp quyền cho Jenkins chạy Docker và khởi động lại Jenkins để áp dụng cấu hình mới.
+
+```bash
+sudo su
+sudo usermod -aG docker jenkins
+sudo systemctl restart jenkins
+```
+
+Hãy thử chạy lại pipeline và kiểm tra kết quả.
+
+![ConnectPrivate](/images/anh57.png)
+
+
+Sau khi pipeline chạy xong, truy cập vào giao diện quản lí repository của Docker Hub để kiểm tra xem image đã được push lên chưa.
+
+![ConnectPrivate](/images/anh58.png)
+
+
+Và kiểm tra ở SonarQube những issues được phát hiện.
+
+![ConnectPrivate](/images/anh59.png)
+
+Vậy là đã thành công bước set up Jenkins Pipeline, bây giờ đến phần Monitoring.
+
+
 
 
 
